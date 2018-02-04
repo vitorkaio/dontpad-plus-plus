@@ -1,0 +1,21 @@
+.cont {
+  height: calc(100vh - 30px);
+}
+
+h3 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.entrada-compartimento {
+  margin-top: 70px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.entrada-compartimento > button {
+  margin-top: 10px;
+}
