@@ -1,15 +1,19 @@
-import axios from 'axios'
+import axios from 'axios';
+import { Observable } from 'rxjs';
 
 // Classe com metódos para acessar a api-compartment-files
 class ApiService {
 
   static postMessage(url, data) {
-    axios.post(`http://localhost:3001/compartimento/arquivos${url}`, {msg: data}).then(res => {
-      console.log(res.data);
-    }).catch(err => {
-      console.log(err);
+    return Observable.create(obs => {
+      axios.post(`http://localhost:3001/compartimento/arquivos${url}`, {msg: data}).then(res => {
+        obs.next(res.data);
+        obs.complete();
+      }).catch(err => {
+        obs.error(err);
+      });
     });
-  };
+  }
 
 }// Fim da classe.
 

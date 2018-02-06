@@ -16,15 +16,36 @@ class TextoComponent extends Component {
     this.subscription = null;
     this.entradaRxjs = new Rx.Subject();
 
-    console.log(this.props.rota.location.pathname);
+    this.rota = this.props.rota.location.pathname;
+
+    this.subscriptionPostMessage = null;
+  }
+
+  // Observables para o acesso o método postMessage da api.
+  getObsPostMessage() {
+    const obs = {
+      next: (data) => {
+        console.log(data);
+      },
+      error: (err) => {
+        console.log(err);
+        this.icons = "warning";
+        this.setState({loading: false});
+      },
+      complete: () => {
+        console.log('done!');
+        this.icons = "save";
+        this.setState({loading: false});
+      }
+    }
+    return obs;
   }
 
   // Observable para entrada de dados.
   getObs() {
     let obs = {
       next: (data) => {
-        // console.log(data);
-        this.fakeApi(data);
+        this.subscriptionPostMessage = ApiService.postMessage(this.rota, data).subscribe(this.getObsPostMessage());
       }
     };
 
@@ -54,15 +75,6 @@ class TextoComponent extends Component {
     }
   }
 
-  // Send text for api.
-  fakeApi(data) {
-    setTimeout(()=> {
-      this.icons = "save";
-      console.log(data);
-      this.setState({loading: false});
-    }, 500);
-  }
-
   // entrada da textarea
   entrada(e) {
     this.icons = "cached";
@@ -75,10 +87,13 @@ class TextoComponent extends Component {
   render() {
     return(
       <div className="entrada-compartimento">
-        <FontIcon className={"material-icons " + (this.state.loading === true ? "loading-texto" : "")}>{this.icons}</FontIcon>
+        <FontIcon style={{color: "#6A6A6A"}} 
+          className={"material-icons " + (this.state.loading === true ? "loading-texto" : "")}>{this.icons}</FontIcon>
         <TextField
         floatingLabelText="Digite..."
           rows={9}
+          floatingLabelFocusStyle={{color: "cornflowerblue"}}
+          underlineFocusStyle={{borderColor: "cornflowerblue"}}
           fullWidth={true}
           multiLine={true} value={this.texto}onChange={this.entrada.bind(this)}/>
       </div>
