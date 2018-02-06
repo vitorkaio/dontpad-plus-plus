@@ -1,0 +1,11 @@
+.links-compartimento {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+
+  margin: 50px 2% 10px 2%;
+}
+
+#meuChip:hover {
+  animation: pulse 1s ease-in-out forwards infinite;
+}

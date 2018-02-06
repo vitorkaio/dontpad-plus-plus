@@ -1,19 +1,25 @@
-.cont {
-  height: calc(100vh - 30px);
-}
-
-h3 {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.entrada-compartimento {
-  margin-top: 70px;
+.tudo-compartimento {
   display: flex;
   flex-direction: column;
   justify-content: center;
+
+  width: 100%;
+}
+
+.senha-compartimento {
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
   align-items: center;
+}
+
+.container-compartimento {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  margin: 0px 2%;
+  margin-top: 20px;
 }
 
 .entrada-compartimento > button {

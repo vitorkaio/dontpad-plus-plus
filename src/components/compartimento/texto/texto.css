@@ -1,0 +1,19 @@
+.entrada-compartimento {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+
+  margin-top: 10px;
+
+}
+
+.loading-texto {
+  animation: roda 2s linear forwards infinite;
+}
+
+@keyframes roda {
+  from{transform: rotate(0deg)}
+  to{transform: rotate(360deg)}
+}
