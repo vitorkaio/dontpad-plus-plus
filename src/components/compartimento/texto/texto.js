@@ -87,8 +87,6 @@ class TextoComponent extends Component {
   render() {
     return(
       <div className="entrada-compartimento">
-        <FontIcon style={{color: "#6A6A6A"}} 
-          className={"material-icons " + (this.state.loading === true ? "loading-texto" : "")}>{this.icons}</FontIcon>
         <TextField
         floatingLabelText="Digite..."
           rows={9}
@@ -96,6 +94,10 @@ class TextoComponent extends Component {
           underlineFocusStyle={{borderColor: "cornflowerblue"}}
           fullWidth={true}
           multiLine={true} value={this.texto}onChange={this.entrada.bind(this)}/>
+        
+        <FontIcon style={{color: "#6A6A6A"}} 
+          className={"material-icons " + (this.state.loading === true ? "loading-texto" : "")}>{this.icons}
+        </FontIcon>
       </div>
     );
   };
