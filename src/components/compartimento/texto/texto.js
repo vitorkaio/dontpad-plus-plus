@@ -19,6 +19,7 @@ class TextoComponent extends Component {
     this.rota = this.props.rota.location.pathname;
 
     this.subscriptionPostMessage = null;
+    this.subscriptionGetText = null;
   }
 
   // Observables para o acesso o método postMessage da api.
@@ -35,6 +36,23 @@ class TextoComponent extends Component {
       complete: () => {
         console.log('done!');
         this.icons = "save";
+        this.setState({loading: false});
+      }
+    }
+    return obs;
+  }
+
+  // Observables para o acesso o método postMessage da api.
+  getObsText() {
+    const obs = {
+      next: (res) => {
+        this.texto = res.data[Object.keys(res.data)[0]].texto;
+        this.setState({loading: true});
+      },
+      error: (err) => {
+        console.log(err);
+      },
+      complete: () => {
         this.setState({loading: false});
       }
     }
@@ -66,6 +84,7 @@ class TextoComponent extends Component {
       })
       .subscribe(this.getObs());
       //.distinctUntilChanged()
+      this.subscriptionGetText = ApiService.getText(this.rota).subscribe(this.getObsText());
   }
 
   // Assim que sair do dom.
@@ -73,6 +92,7 @@ class TextoComponent extends Component {
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
+    this.subscriptionGetText.unsubscribe();
   }
 
   // entrada da textarea
