@@ -16,6 +16,7 @@ class ImagemComponent extends Component {
     const img = e.target.files;
     console.log(img[0].name);
 
+    // Pega a imagem do campo.
     this.setState({nameImg: img[0].name});
   }
 
