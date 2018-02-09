@@ -71,6 +71,7 @@ class TextoComponent extends Component {
   }
 
   componentDidMount() {
+    console.log('*** Did mount ***');
     this.subscription = this.entradaRxjs
       .debounceTime(2000)
       .distinctUntilChanged((x, y) => {
