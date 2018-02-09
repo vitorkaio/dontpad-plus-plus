@@ -48,7 +48,6 @@ class TextoComponent extends Component {
       next: (res) => {
         this.texto = res.data[Object.keys(res.data)[0]].texto;
         this.setState({loading: true});
-        console.log(res);
       },
       error: (err) => {
         console.log(err);
