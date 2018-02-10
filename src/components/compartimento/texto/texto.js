@@ -20,37 +20,26 @@ class TextoComponent extends Component {
 
     this.subscriptionPostMessage = null;
     this.subscriptionGetText = null;
-  }
 
-  // Observables para o acesso o método postMessage da api.
-  getObsPostMessage() {
-    const obs = {
-      next: (data) => {
-        console.log(data);
-      },
-      error: (err) => {
-        console.log(err);
-        this.icons = "warning";
-        this.setState({loading: false});
-      },
-      complete: () => {
-        console.log('done!');
-        this.icons = "save";
-        this.setState({loading: false});
-      }
-    }
-    return obs;
+    this.api = new ApiService(this.rota);
   }
 
   // Observables para o acesso o método postMessage da api.
   getObsText() {
     const obs = {
       next: (res) => {
-        this.texto = res.data[Object.keys(res.data)[0]].texto;
-        this.setState({loading: true});
+        this.texto = res[Object.keys(res)[0]].texto;
+        this.icons = 'save';
+        this.setState({loading: false});
       },
       error: (err) => {
-        console.log(err);
+        if(err === false) {
+          this.api.postMessage(this.rota, 'vazio').then(res => {
+            this.setState({loading: false});
+          }).catch(erro => {
+
+          });
+        }
       },
       complete: () => {
         this.setState({loading: false});
@@ -63,7 +52,13 @@ class TextoComponent extends Component {
   getObs() {
     let obs = {
       next: (data) => {
-        this.subscriptionPostMessage = ApiService.postMessage(this.rota, data).subscribe(this.getObsPostMessage());
+        this.api.postMessage(this.rota, data).then(res => {
+          console.log(res);
+          this.setState({loading: false});
+        });
+      },
+      error: (err) => {
+        
       }
     };
 
@@ -85,7 +80,7 @@ class TextoComponent extends Component {
       })
       .subscribe(this.getObs());
       //.distinctUntilChanged()
-      this.subscriptionGetText = ApiService.getText(this.rota).subscribe(this.getObsText());
+      this.subscriptionGetText = this.api.getText().subscribe(this.getObsText());
   }
 
   // Assim que sair do dom.
@@ -98,11 +93,15 @@ class TextoComponent extends Component {
 
   // entrada da textarea
   entrada(e) {
-    this.icons = "cached";
+    this.icons = 'cached';
     this.texto = e.target.value;
       this.setState({loading: true}, () => {
         this.entradaRxjs.next(this.texto);
       });
+  }
+
+  componentWillUnmount() {
+    this.api.closeCliente();
   }
 
   render() {
