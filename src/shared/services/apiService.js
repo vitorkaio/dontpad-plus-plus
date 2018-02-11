@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { Observable } from 'rxjs';
 
 const io = require('socket.io-client');
@@ -18,8 +17,14 @@ class ApiService {
       socket.on('getReactApp', (res) => {
         if(res !== false)
           obs.next(res);
+        else if(res === null)
+          obs.error(res);
         else
-          obs.error(false);
+          obs.next(false);
+      });
+      // Fica escutando pra vê se tem algum erro.
+      socket.on("connect_error", res => {
+        obs.error(null);
       });
     });
   }
@@ -36,6 +41,9 @@ class ApiService {
       socket.emit('postText', url, data);
       socket.on('postReactApp', (res) => {
         resolve(res);
+      });
+      socket.on("connect_error", res => {
+        reject(null);
       });
     });
   }

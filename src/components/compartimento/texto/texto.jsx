@@ -24,47 +24,6 @@ class TextoComponent extends Component {
     this.api = new ApiService(this.rota);
   }
 
-  // Observables para o acesso o método postMessage da api.
-  getObsText() {
-    const obs = {
-      next: (res) => {
-        this.texto = res[Object.keys(res)[0]].texto;
-        this.icons = 'save';
-        this.setState({loading: false});
-      },
-      error: (err) => {
-        if(err === false) {
-          this.api.postMessage(this.rota, 'vazio').then(res => {
-            this.setState({loading: false});
-          }).catch(erro => {
-
-          });
-        }
-      },
-      complete: () => {
-        this.setState({loading: false});
-      }
-    }
-    return obs;
-  }
-
-  // Observable para entrada de dados.
-  getObs() {
-    let obs = {
-      next: (data) => {
-        this.api.postMessage(this.rota, data).then(res => {
-          console.log(res);
-          this.setState({loading: false});
-        });
-      },
-      error: (err) => {
-        
-      }
-    };
-
-    return obs;
-  }
-
   componentDidMount() {
     console.log('*** Did mount ***');
     this.subscription = this.entradaRxjs
@@ -78,17 +37,65 @@ class TextoComponent extends Component {
         else if(x !== y)
           return false;
       })
-      .subscribe(this.getObs());
+      .subscribe(this.getObsPostText());
       //.distinctUntilChanged()
       this.subscriptionGetText = this.api.getText().subscribe(this.getObsText());
   }
 
   // Assim que sair do dom.
   componentWillUnmount() {
+    this.api.closeCliente();
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
     this.subscriptionGetText.unsubscribe();
+  }
+
+  // Observables para o acesso o método getText da api.
+  getObsText() {
+    const obs = {
+      next: (res) => {
+        if(res !== false) {
+          this.texto = res[Object.keys(res)[0]].texto;
+          this.icons = 'save';
+          this.setState({loading: false});
+        }
+        else {
+          this.api.postMessage(this.rota, 'vazio').then(res => {
+            this.setState({loading: false});
+          }).catch(erro => {
+            this.icons = 'warning';
+            this.setState({loading: false});
+          });
+        }
+      },
+      error: (err) => {
+        if(err === null) {
+          this.icons = 'warning';
+          this.setState({loading: false});
+        }
+      },
+      complete: () => {
+        this.setState({loading: false});
+      }
+    }
+    return obs;
+  }
+
+  // Observable para entrada de dados.
+  getObsPostText() {
+    let obs = {
+      next: (data) => {
+        this.api.postMessage(this.rota, data).then(res => {
+          console.log(res);
+          this.setState({loading: false});
+        }).catch(err => {
+          this.icons = 'warning';
+          this.setState({loading: false});
+        })
+      },
+    };
+    return obs;
   }
 
   // entrada da textarea
@@ -98,10 +105,6 @@ class TextoComponent extends Component {
       this.setState({loading: true}, () => {
         this.entradaRxjs.next(this.texto);
       });
-  }
-
-  componentWillUnmount() {
-    this.api.closeCliente();
   }
 
   render() {

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import './imagem.css';
-import { TextField, FontIcon } from 'material-ui';
+/*import { TextField, FontIcon } from 'material-ui';
 import Rx from 'rxjs/Rx';
-import ApiService from './../../../shared/services/apiService';
+import ApiService from './../../../shared/services/apiService';*/
 
 class ImagemComponent extends Component {
 

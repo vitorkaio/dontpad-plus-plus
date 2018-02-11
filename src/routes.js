@@ -2,7 +2,7 @@ import React from 'react'
 import { Switch, Route } from 'react-router-dom'
 
 import HomeComponent from './components/home/home';
-import CompartimentoComponent from './components/compartimento/compartimento';
+import CompartimentoComponent from './components/compartimento/compartimento.jsx';
 
 // Declaration of routes for at sub-routes of app.
 

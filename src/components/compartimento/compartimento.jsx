@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './compartimento.css';
 import DesbloquearComponent from './desbloquear/desbloquear';
 import LinksComponent from './links/links';
-import TextoComponent from './texto/texto';
+import TextoComponent from './texto/texto.jsx';
 import ImagemComponent from './imagens/imagem';
 import { Tab, Tabs, FontIcon } from 'material-ui';
 
