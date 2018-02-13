@@ -16,16 +16,12 @@ class TextoComponent extends Component {
     this.subscription = null;
     this.entradaRxjs = new Rx.Subject();
 
-    this.rota = this.props.rota.location.pathname;
-
     this.subscriptionPostMessage = null;
     this.subscriptionGetText = null;
-
-    this.api = new ApiService(this.rota);
   }
 
   componentDidMount() {
-    console.log('*** Did mount ***');
+    console.log('Did mount - texto jsx');
     this.subscription = this.entradaRxjs
       .debounceTime(2000)
       .distinctUntilChanged((x, y) => {
@@ -39,12 +35,12 @@ class TextoComponent extends Component {
       })
       .subscribe(this.getObsPostText());
       //.distinctUntilChanged()
-      this.subscriptionGetText = this.api.getText().subscribe(this.getObsText());
+      this.subscriptionGetText = this.props.apiService.getText().subscribe(this.getObsText());
   }
 
   // Assim que sair do dom.
   componentWillUnmount() {
-    this.api.closeCliente();
+    this.props.apiService.closeCliente();
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
@@ -61,7 +57,7 @@ class TextoComponent extends Component {
           this.setState({loading: false});
         }
         else {
-          this.api.postMessage(this.rota, 'vazio').then(res => {
+          this.props.apiService.postMessage(this.props.rota, 'vazio').then(res => {
             this.setState({loading: false});
           }).catch(erro => {
             this.icons = 'warning';
@@ -86,8 +82,8 @@ class TextoComponent extends Component {
   getObsPostText() {
     let obs = {
       next: (data) => {
-        this.api.postMessage(this.rota, data).then(res => {
-          console.log(res);
+        this.props.apiService.postMessage(this.props.rota, data).then(res => {
+          // console.log(res);
           this.setState({loading: false});
         }).catch(err => {
           this.icons = 'warning';

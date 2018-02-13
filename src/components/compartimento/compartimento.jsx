@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import './compartimento.css';
 import DesbloquearComponent from './desbloquear/desbloquear';
-import LinksComponent from './links/links';
+import LinksComponent from './links/links.jsx';
 import TextoComponent from './texto/texto.jsx';
 import ImagemComponent from './imagens/imagem';
 import { Tab, Tabs, FontIcon } from 'material-ui';
+import ApiService from './../../shared/services/apiService';
 
 class CompartimentoComponent extends Component {
 
@@ -12,13 +13,17 @@ class CompartimentoComponent extends Component {
     super(props);
 
     this.state = {value: 'a'};
-
-    this.listaLinks = ['Link1', 'Outro2', 'Lista3', 'Word4'];
+    this.rota = this.props.location.pathname;
+    this.apiService = new ApiService(this.rota);
   }
 
   handleChange = (value) => {
     this.setState({value: value});
   };
+
+  componentDidMount() {
+    console.log('Did mount - compartimento jsx');
+  }
 
   render() {
     // console.log('**** CompartimentoComponent render ****');
@@ -26,7 +31,7 @@ class CompartimentoComponent extends Component {
       <div className="tudo-compartimento">
        
         <DesbloquearComponent />
-        <LinksComponent links={this.listaLinks}/>
+        <LinksComponent apiService={this.apiService} rota={this.rota} navigate={this.props.history}/>
         
         <div className="container-compartimento">
 
@@ -34,7 +39,7 @@ class CompartimentoComponent extends Component {
             inkBarStyle={{backgroundColor: '#6E6E6E'}} tabItemContainerStyle={{backgroundColor: '#EEEEEE'}}>
 
             <Tab value="a" icon={<FontIcon className="material-icons" style={{color: "#6A6A6A"}}>text_fields</FontIcon>} style={{color: "#6A6A6A"}}>
-              <TextoComponent rota={this.props.history}/>
+              <TextoComponent apiService={this.apiService} rota={this.rota}/>
             </Tab>
 
             <Tab value="b" icon={<FontIcon className="material-icons" style={{color: "#6A6A6A"}}>add_a_photo</FontIcon>} style={{color: "#6A6A6A"}}>
