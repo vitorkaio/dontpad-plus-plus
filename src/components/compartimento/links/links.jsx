@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import './links.css';
 import { Chip, FontIcon, Avatar } from 'material-ui';
 
+const sep = '@@-@3';
+
 class LinksComponent extends Component {
 
   constructor(props) {
@@ -11,21 +13,19 @@ class LinksComponent extends Component {
   }
 
   componentDidMount() {
-    let obs = {
-      next: (data) => {
-        if(data !== false)
-          this.setState({lista: [...data]});
-        else
-          console.log('Sem links');
-      },
-      error: (err) => {
-        console.log(err);
-      }
-    }
-    this.props.apiService.getSubFolders().subscribe(obs);
+    this.props.apiService.getSubFolders().then(data => {
+      if(data !== false)
+        this.setState({lista: [...data]});
+      else
+        console.log('Sem links');
+    }).catch(err => {
+      console.log(err);
+    });
   }
 
   navegaLink(link) {
+    link = link.split(sep).join('/');
+    console.log(link);
     this.props.navigate.replace('/' + link);
     this.props.navigate.go('/' + link);
   }
@@ -35,8 +35,9 @@ class LinksComponent extends Component {
     const list = [];
 
     for(let x = 0; x < this.state.lista.length; x++) {
-      const links = this.state.lista[x].split('/');
-      const link = links[links.length -1];
+      const links = this.state.lista[x].split(sep).join('');
+      const aux = links.split('/');
+      const link = aux[aux.length - 1];
       list.push(
         <Chip key={x} onClick={() => {this.navegaLink(this.state.lista[x])}} id="meuChip">
           <Avatar icon={<FontIcon className="material-icons">folder</FontIcon>} />

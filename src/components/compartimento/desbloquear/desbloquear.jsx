@@ -16,8 +16,14 @@ class DesbloquearComponent extends Component {
 
   // Submit senha.
   submit(event) {
-    if(this.state.senha.length !== 0) 
+    if(this.state.senha.length !== 0) {
       console.log(this.state.senha);
+      this.props.apiService.postSenha(this.state.senha).then(res => {
+        console.log(res);
+      }).catch(err => {
+        console.log(err);
+      });
+    } 
       // this.setState({senha: ""});
     event.preventDefault(); // Impede de submeter o formulário.
   }

@@ -3,15 +3,18 @@ import './texto.css';
 import { TextField, FontIcon } from 'material-ui';
 import Rx from 'rxjs/Rx';
 import ApiService from './../../../shared/services/apiService';
+import SenhaComponent from './../senha/senha.jsx';
 
 class TextoComponent extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {loading: false};
+    this.state = {loading: false, block: false};
     this.loading = false;
     this.icons = "save";
     this.texto = "";
+
+    this.senha = null;
 
     this.subscription = null;
     this.entradaRxjs = new Rx.Subject();
@@ -53,11 +56,12 @@ class TextoComponent extends Component {
       next: (res) => {
         if(res !== false) {
           this.texto = res[Object.keys(res)[0]].texto;
+          this.senha = res[Object.keys(res)[0]].senha;
           this.icons = 'save';
           this.setState({loading: false});
         }
         else {
-          this.props.apiService.postMessage(this.props.rota, 'vazio').then(res => {
+          this.props.apiService.postMessage(null).then(res => {
             this.setState({loading: false});
           }).catch(erro => {
             this.icons = 'warning';
@@ -82,7 +86,7 @@ class TextoComponent extends Component {
   getObsPostText() {
     let obs = {
       next: (data) => {
-        this.props.apiService.postMessage(this.props.rota, data).then(res => {
+        this.props.apiService.postMessage(data).then(res => {
           // console.log(res);
           this.setState({loading: false});
         }).catch(err => {
@@ -103,20 +107,37 @@ class TextoComponent extends Component {
       });
   }
 
+  // Ativar ou desativa o campo de texto.
+  senhaCheck(op) {
+    console.log(op);
+    if(op === 1)
+      this.setState({block: true});
+    else
+      this.setState({block: false});
+    
+  }
+
   render() {
+    console.log('**** texto render ****', this.state.block);
+    const check = this.senha !== undefined && this.state.block === false ? true : false;
     return(
       <div className="entrada-compartimento">
         <TextField
         floatingLabelText="Digite..."
+          readOnly={check}
           rows={9}
           floatingLabelFocusStyle={{color: "cornflowerblue"}}
           underlineFocusStyle={{borderColor: "cornflowerblue"}}
           fullWidth={true}
           multiLine={true} value={this.texto}onChange={this.entrada.bind(this)}/>
         
-        <FontIcon style={{color: "#6A6A6A"}} 
-          className={"material-icons " + (this.state.loading === true ? "loading-texto" : "")}>{this.icons}
-        </FontIcon>
+        <div className="entrada-senha">
+          <div></div>
+          <FontIcon style={{color: "#6A6A6A"}} 
+            className={"material-icons " + (this.state.loading === true ? "loading-texto" : "")}>{this.icons}
+          </FontIcon>
+          <SenhaComponent situacao={this.senha} block={this.senhaCheck.bind(this)} apiService={this.props.apiService}/>
+        </div>
       </div>
     );
   };

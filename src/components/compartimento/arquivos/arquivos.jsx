@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import './imagem.css';
+import './arquivos.css';
 /*import { TextField, FontIcon } from 'material-ui';
 import Rx from 'rxjs/Rx';
 import ApiService from './../../../shared/services/apiService';*/
 
-class ImagemComponent extends Component {
+class ArquivosComponent extends Component {
 
   constructor(props) {
     super(props);
@@ -33,4 +33,4 @@ class ImagemComponent extends Component {
   };
 }
 
-export default ImagemComponent;
+export default ArquivosComponent;
