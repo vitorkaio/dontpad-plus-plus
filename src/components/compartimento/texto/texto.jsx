@@ -57,6 +57,10 @@ class TextoComponent extends Component {
         if(res !== false) {
           this.texto = res[Object.keys(res)[0]].texto;
           this.senha = res[Object.keys(res)[0]].senha;
+
+          // Se a senha é 0 então é desbloqueada automaticamente.
+          this.senha = this.senha === '0' ? undefined : this.senha;
+
           this.icons = 'save';
           this.setState({loading: false});
         }
@@ -118,7 +122,6 @@ class TextoComponent extends Component {
   }
 
   render() {
-    console.log('**** texto render ****', this.state.block);
     const check = this.senha !== undefined && this.state.block === false ? true : false;
     return(
       <div className="entrada-compartimento">

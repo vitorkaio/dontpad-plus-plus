@@ -7,6 +7,7 @@ class BloqueadoComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {open: false, senha: ''};
+    this.senha = '';
     console.log('**** BloqueadoComponet ****');
     this.title = null;
     this.icon = null;
@@ -17,23 +18,29 @@ class BloqueadoComponent extends Component {
   };
 
   handleClose = () => {
+    this.senha = '';
     this.setState({open: false});
   };
 
   // input do campo de texto.
   inputSenha(e) {
+    this.senha = e.target.value;
     this.setState({senha: e.target.value});
   }
 
+  // Envia a senha, 1 para desbloqueio e 0 para bloquear.
   submit() {
     this.setState({open: false}, () => {
       if(this.props.check)
-        this.props.input(this.state.senha, 1);
+        this.props.input(this.senha, 1);
       else
-        this.props.input(this.state.senha, 0);
+        this.props.input(this.senha, 0);
+      
+      this.senha = '';
     });
   }
 
+  // Se check for true: desbloquea, caso contrário bloquea.
   modalRender() {
     if(this.props.check) {
       this.title = 'Desbloquear - Digite a senha';
@@ -61,7 +68,7 @@ class BloqueadoComponent extends Component {
 
     return (
       <div>
-        <FontIcon style={{color: "#6A6A6A"}} onClick={this.handleOpen} 
+        <FontIcon style={{color: "#6A6A6A"}} onClick={this.handleOpen} style={{cursor: 'pointer'}} 
           className="material-icons ">{this.icon}
         </FontIcon>
 
@@ -76,7 +83,7 @@ class BloqueadoComponent extends Component {
             underlineFocusStyle={{borderColor: "cornflowerblue"}} 
             floatingLabelFocusStyle={{color: "cornflowerblue"}}
             floatingLabelText="Senha..." 
-            value={this.state.senha}
+            value={this.senha}
             onChange={this.inputSenha.bind(this)}
             type="password" />
         </Dialog>
