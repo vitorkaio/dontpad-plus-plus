@@ -17,7 +17,7 @@ class LinksComponent extends Component {
       if(data !== false)
         this.setState({lista: [...data]});
       else
-        console.log('Sem links');
+        console.log('Parabéns Kleytola');
     }).catch(err => {
       console.log(err);
     });
@@ -34,17 +34,18 @@ class LinksComponent extends Component {
   renderizaLinks() {
     const list = [];
 
+    if(this.state.lista.length === 0)
+      return <div id='meuChip' style={{textAlign: 'center'}}><p>Sem sub-links</p></div>
+
     for(let x = 0; x < this.state.lista.length; x++) {
       const links = this.state.lista[x].split(sep).join('');
       const aux = links.split('/');
       const link = aux[aux.length - 1];
       list.push(
-        <Chip key={x} onClick={() => {this.navegaLink(this.state.lista[x])}} id="meuChip">
-          <Avatar icon={<FontIcon className="material-icons">folder</FontIcon>} />
-          {
-            link
-          }
-        </Chip>
+        <div key={x} onClick={() => {this.navegaLink(this.state.lista[x])}} id="meuChip">
+          <span><FontIcon className="material-icons">folder</FontIcon></span>
+          <p>{link}</p>
+        </div>
       )
     }
     return list;

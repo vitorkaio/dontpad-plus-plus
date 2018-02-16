@@ -1,9 +1,46 @@
 .links-compartimento {
+  width: 20%;
   display: flex;
-  justify-content: space-around;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   flex-wrap: wrap;
+  
+  border: solid #6A6A6A;
+  border-width: 0px 1px 0px 0px;
+}
 
-  margin: 50px 2% 10px 2%;
+#meuChip {
+  width: 80%;
+  margin: 8px 0px;
+  padding: 10px 0px;
+  
+  background-color: #EEEEEE;
+  cursor: pointer;
+  
+  display: flex;
+  justify-content: flex-start;
+}
+
+#meuChip > span {
+  margin-left: 5px; 
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
+}
+
+#meuChip > p {
+  flex: 1;
+  
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
+
+  color: #6A6A6A;
+
 }
 
 #meuChip:hover {

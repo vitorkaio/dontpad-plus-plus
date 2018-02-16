@@ -37,8 +37,6 @@ class CompartimentoComponent extends Component {
     // console.log('**** CompartimentoComponent render ****');
     return (
       <div className="tudo-compartimento">
-       
-        <DesbloquearComponent apiService={this.apiService} inputSenha={this.senhaDesblock.bind(this)}/>
         <LinksComponent apiService={this.apiService} rota={this.rota} navigate={this.props.history}/>
         
         <div className="container-compartimento">

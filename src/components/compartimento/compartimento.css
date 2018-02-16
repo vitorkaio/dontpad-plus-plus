@@ -1,9 +1,8 @@
 .tudo-compartimento {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-
-  width: 100%;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 15px 2%;
 }
 
 .senha-compartimento {
@@ -14,12 +13,11 @@
 }
 
 .container-compartimento {
+  flex: 3;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-
-  margin: 0px 2%;
-  margin-top: 20px;
+  margin: 8px 2%;
 }
 
 .entrada-compartimento > button {

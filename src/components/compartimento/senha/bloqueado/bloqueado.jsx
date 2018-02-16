@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './bloqueado.css';
-import { FontIcon, Dialog, FlatButton, TextField } from 'material-ui';
+import { FontIcon, Dialog, FlatButton, TextField, IconButton } from 'material-ui';
 
 class BloqueadoComponent extends Component {
 
@@ -8,9 +8,9 @@ class BloqueadoComponent extends Component {
     super(props);
     this.state = {open: false, senha: ''};
     this.senha = '';
-    console.log('**** BloqueadoComponet ****');
     this.title = null;
     this.icon = null;
+    this.tooltip = null;
   }
 
   handleOpen = () => {
@@ -44,10 +44,12 @@ class BloqueadoComponent extends Component {
   modalRender() {
     if(this.props.check) {
       this.title = 'Desbloquear - Digite a senha';
+      this.tooltip = 'Desbloquear';
       this.icon = 'lock_outline';
     }
     else {
       this.title = 'Bloquear - Digite a senha';
+      this.tooltip = 'Bloquear';
       this.icon = 'lock_open';
     }
   }
@@ -68,9 +70,11 @@ class BloqueadoComponent extends Component {
 
     return (
       <div>
-        <FontIcon style={{color: "#6A6A6A"}} onClick={this.handleOpen} style={{cursor: 'pointer'}} 
-          className="material-icons ">{this.icon}
-        </FontIcon>
+        <IconButton tooltip={this.tooltip}>
+          <FontIcon style={{color: "#6A6A6A"}} onClick={this.handleOpen} style={{cursor: 'pointer'}} 
+            className="material-icons ">{this.icon}
+          </FontIcon>
+        </IconButton>
 
         <Dialog
           title={this.title}

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './texto.css';
-import { TextField, FontIcon } from 'material-ui';
+import { TextField, FontIcon, IconButton } from 'material-ui';
 import Rx from 'rxjs/Rx';
 import ApiService from './../../../shared/services/apiService';
 import SenhaComponent from './../senha/senha.jsx';
@@ -12,6 +12,7 @@ class TextoComponent extends Component {
     this.state = {loading: false, block: false};
     this.loading = false;
     this.icons = "save";
+    this.tooltip = 'Conteúdo salvo';
     this.texto = "";
 
     this.senha = null;
@@ -68,6 +69,7 @@ class TextoComponent extends Component {
           this.props.apiService.postMessage(null).then(res => {
             this.setState({loading: false});
           }).catch(erro => {
+            this.tooltip = 'Não foi possível carregar o conteúdo';
             this.icons = 'warning';
             this.setState({loading: false});
           });
@@ -75,6 +77,7 @@ class TextoComponent extends Component {
       },
       error: (err) => {
         if(err === null) {
+          this.tooltip = 'Não foi possível carregar o conteúdo';
           this.icons = 'warning';
           this.setState({loading: false});
         }
@@ -95,6 +98,7 @@ class TextoComponent extends Component {
           this.setState({loading: false});
         }).catch(err => {
           this.icons = 'warning';
+          this.tooltip = 'Não foi possível salvar o conteúdo';
           this.setState({loading: false});
         })
       },
@@ -136,9 +140,11 @@ class TextoComponent extends Component {
         
         <div className="entrada-senha">
           <div></div>
-          <FontIcon style={{color: "#6A6A6A"}} 
-            className={"material-icons " + (this.state.loading === true ? "loading-texto" : "")}>{this.icons}
-          </FontIcon>
+          <IconButton tooltip={this.tooltip}>
+            <FontIcon style={{color: "#6A6A6A"}} 
+              className={"material-icons " + (this.state.loading === true ? "loading-texto" : "")}>{this.icons}
+            </FontIcon>
+          </IconButton>
           <SenhaComponent situacao={this.senha} block={this.senhaCheck.bind(this)} apiService={this.props.apiService}/>
         </div>
       </div>
