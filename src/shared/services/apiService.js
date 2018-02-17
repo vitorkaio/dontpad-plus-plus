@@ -65,6 +65,7 @@ class ApiService {
 
   // Fecha um cliente.
   closeCliente() {
+    console.log("CLOSE CLOSE CLOSE CLOSE");
     socket.emit('close');
   }
 

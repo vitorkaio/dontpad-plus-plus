@@ -32,8 +32,7 @@ class SenhaComponent extends Component {
     }
   }
   render() {
-    console.log('senha.jsx', this.senha, this.props.situacao);
-
+    // console.log('senha.jsx', this.senha, this.props.situacao);
     // Se a senha estiver vazia: desbloquea.
     const bloqueado = this.props.situacao !== undefined && this.senha !== this.props.situacao ? true : false;
     return (

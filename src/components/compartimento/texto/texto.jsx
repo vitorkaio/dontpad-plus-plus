@@ -2,14 +2,13 @@ import React, { Component } from 'react';
 import './texto.css';
 import { TextField, FontIcon, IconButton } from 'material-ui';
 import Rx from 'rxjs/Rx';
-import ApiService from './../../../shared/services/apiService';
 import SenhaComponent from './../senha/senha.jsx';
 
 class TextoComponent extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {loading: false, block: false};
+    this.state = {loading: false, block: false, alturaTela: Math.round((window.innerHeight) / 24) - 10};
     this.loading = false;
     this.icons = "save";
     this.tooltip = 'Conteúdo salvo';
@@ -20,12 +19,21 @@ class TextoComponent extends Component {
     this.subscription = null;
     this.entradaRxjs = new Rx.Subject();
 
-    this.subscriptionPostMessage = null;
     this.subscriptionGetText = null;
+
+    // Adiciona um listener pra escutar toda vez que o height muda.
+    // Caso o height mude, calcule novamente o tamanho da textarea.
+    window.addEventListener("resize", this.getInnerHeight.bind(this));
+
+  }
+
+  // Determina a largura da tela e renderiza a navbar correta.
+  getInnerHeight() {
+    this.setState({alturaTela: Math.round((window.innerHeight) / 24) - 10});
   }
 
   componentDidMount() {
-    console.log('Did mount - texto jsx');
+    // console.log('Did mount - texto jsx');
     this.subscription = this.entradaRxjs
       .debounceTime(2000)
       .distinctUntilChanged((x, y) => {
@@ -107,7 +115,7 @@ class TextoComponent extends Component {
   }
 
   // entrada da textarea
-  entrada(e) {
+  entrada = (e) => {
     this.icons = 'cached';
     this.texto = e.target.value;
       this.setState({loading: true}, () => {
@@ -117,7 +125,7 @@ class TextoComponent extends Component {
 
   // Ativar ou desativa o campo de texto.
   senhaCheck(op) {
-    console.log(op);
+    // console.log(op);
     if(op === 1)
       this.setState({block: true});
     else
@@ -132,11 +140,11 @@ class TextoComponent extends Component {
         <TextField
         floatingLabelText="Digite..."
           readOnly={check}
-          rows={9}
+          rows={this.state.alturaTela}
           floatingLabelFocusStyle={{color: "cornflowerblue"}}
           underlineFocusStyle={{borderColor: "cornflowerblue"}}
           fullWidth={true}
-          multiLine={true} value={this.texto}onChange={this.entrada.bind(this)}/>
+          multiLine={true} value={this.texto}onChange={this.entrada}/>
         
         <div className="entrada-senha">
           <div></div>
