@@ -1,6 +1,7 @@
 import { Observable } from 'rxjs';
 
 const io = require('socket.io-client');
+// const socket = io.connect("http://127.0.0.1:5000/");
 const socket = io.connect("http://localhost:3001");
 
 // Classe com metódos para acessar a api-compartment-files
@@ -34,6 +35,7 @@ class ApiService {
     
     return Observable.create(obs => {
       socket.on('getReactApp', (res) => {
+        console.log(res);
         if(res !== false)
           obs.next(res);
         else if(res === null)
@@ -61,6 +63,30 @@ class ApiService {
         reject(null);
       });
     });
+  }
+
+  // Upload de arquivo.
+  uploadArquivo(file) {
+    // console.log(file.nome, file.data, "api");
+    const sendJson = JSON.stringify(file);
+    socket.emit("uploadArquivo", this.url, sendJson);
+
+    return Observable.create(obs => {
+      socket.on("uploadArquivoReact", snap => {
+        if(snap === true)
+          obs.complete();
+        else if(snap === false)
+          obs.error(false);
+        else
+          obs.next(snap);
+      });
+
+      socket.on("connect_error", res => {
+        obs.error(false);
+      });
+
+    });
+
   }
 
   // Fecha um cliente.

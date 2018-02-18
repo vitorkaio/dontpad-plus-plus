@@ -53,7 +53,6 @@ class CompartimentoComponent extends Component {
           null
         }
         <div className="container-compartimento">
-
           <Tabs value={this.state.value} onChange={this.handleChange} style={{width: "100%"}} 
             inkBarStyle={{backgroundColor: '#6E6E6E'}} tabItemContainerStyle={{backgroundColor: '#EEEEEE'}}>
 
@@ -64,7 +63,7 @@ class CompartimentoComponent extends Component {
 
             <Tab value="b" icon={<FontIcon className="material-icons" style={{color: "#6A6A6A"}}>insert_drive_file</FontIcon>} 
               style={{color: "#6A6A6A"}}>
-              <ArquivosComponent />
+              <ArquivosComponent apiService={this.apiService}/>
             </Tab>
 
           </Tabs>

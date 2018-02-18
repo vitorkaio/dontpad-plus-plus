@@ -8,7 +8,7 @@ class TextoComponent extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {loading: false, block: false, alturaTela: Math.round((window.innerHeight) / 24) - 10};
+    this.state = {loading: false, block: false, alturaTela: Math.round((window.innerHeight) / 24) - 2};
     this.loading = false;
     this.icons = "save";
     this.tooltip = 'Conteúdo salvo';
@@ -29,7 +29,7 @@ class TextoComponent extends Component {
 
   // Determina a largura da tela e renderiza a navbar correta.
   getInnerHeight() {
-    this.setState({alturaTela: Math.round((window.innerHeight) / 24) - 10});
+    this.setState({alturaTela: Math.round((window.innerHeight) / 24) - 2});
   }
 
   componentDidMount() {
@@ -137,14 +137,8 @@ class TextoComponent extends Component {
     const check = this.senha !== undefined && this.state.block === false ? true : false;
     return(
       <div className="entrada-compartimento">
-        <TextField
-        floatingLabelText="Digite..."
-          readOnly={check}
-          rows={this.state.alturaTela}
-          floatingLabelFocusStyle={{color: "cornflowerblue"}}
-          underlineFocusStyle={{borderColor: "cornflowerblue"}}
-          fullWidth={true}
-          multiLine={true} value={this.texto}onChange={this.entrada}/>
+        <textarea placeholder="Digite algo" onChange={this.entrada} value={this.texto} readOnly={check} 
+        rows={this.state.alturaTela} id="text-area"/>
         
         <div className="entrada-senha">
           <div></div>
