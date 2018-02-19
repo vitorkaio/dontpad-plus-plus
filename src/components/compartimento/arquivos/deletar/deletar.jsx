@@ -11,7 +11,7 @@ class DeletarArquivoComponent extends Component {
     super(props);
   }
 
-  // deleta um arquivo.
+  // Deleta um arquivo.
   deletaArquivo = () => {
     if(window.confirm("Deletar o arquivo?")) {
       this.props.apiService.deletaArquivo(this.props.id).then(res => {
@@ -24,9 +24,10 @@ class DeletarArquivoComponent extends Component {
 
   // ************************************ render ************************************
   render() {
+    console.log(this.props.disable);
     return(
       <div className="upload-deletar-arquivo" onClick={this.deletaArquivo}>
-        <IconButton tooltip={`Deletar - ${this.props.nome}`}>
+        <IconButton tooltip={`Deletar - ${this.props.nome}`} disabled={this.props.disable}>
           <FontIcon className="material-icons"
            color="crimson">delete
           </FontIcon>

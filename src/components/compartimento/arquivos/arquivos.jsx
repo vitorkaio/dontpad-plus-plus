@@ -3,11 +3,15 @@ import './arquivos.css';
 import { Map } from 'immutable';
 import { FlatButton, FontIcon, IconButton } from 'material-ui';
 import DeletarArquivoComponent from './deletar/deletar.jsx';
+import SenhaComponent from './../senha/senha.jsx';
 import texto_upload from './../../../lib/imgs/texto_upload.svg';
 import app_upload from './../../../lib/imgs/app_upload.svg';
 import other_upload from './../../../lib/imgs/other_upload.svg';
 /*import Rx from 'rxjs/Rx';
 import ApiService from './../../../shared/services/apiService';*/
+import { connect } from 'react-redux';
+import * as senhaActions from './../../../redux/actions/senhaActions';
+
 
 class ArquivosComponent extends Component {
 
@@ -18,6 +22,8 @@ class ArquivosComponent extends Component {
     this.subsUploadArquivo = null;
     this.arq = null;
     this.icon = "cloud_upload";
+
+    console.log(this.props.arquivos);
   }
 
   // ************************************ Input file ************************************
@@ -110,7 +116,7 @@ class ArquivosComponent extends Component {
                 <FontIcon className="material-icons" color="#6A6A6A">cloud_download</FontIcon>
               </IconButton>
             </a>
-            <DeletarArquivoComponent apiService={this.props.apiService} nome={nome} id={id}/>
+            <DeletarArquivoComponent disable={this.props.senhaReducer.get("isBlock")} apiService={this.props.apiService} nome={nome} id={id}/>
           </div>
         </div>
       );
@@ -119,17 +125,21 @@ class ArquivosComponent extends Component {
   
   }
 
+  // Senha check
+  senhaCheck = (op) => {
+    console.log(op);
+  }
+
   // ************************************ render ************************************
   render() {
-    console.log("** Render arquivos **", this.state.erroSize, this.state.arquivo.get("size"));
+    // console.log("** Render arquivos **", this.state.erroSize, this.state.arquivo.get("size"));
     return(
       <div className="imagem-compartimento">
-        <div id="input-upload-image">
+        <div id="input-upload-image" style={{display: this.props.senhaReducer.get("isBlock") ? "none" : null}} >
           <FontIcon className="material-icons" color="#6A6A6A" style={{marginRight: 5}}>file_upload</FontIcon>
           <label htmlFor="upload-photo">Input arquivo</label>
           <input style={{opacity: 0, position: 'absolute', zIndex: -1}} type="file" name="photo" id="upload-photo" onChange={this.inputImagem.bind(this)} />
         </div>
-
         {
           this.state.arquivo.get("nome") === null ? null : 
           <div className="upload-arquivos-input">
@@ -158,4 +168,24 @@ class ArquivosComponent extends Component {
   };
 }
 
-export default ArquivosComponent;
+const mapStateToProps = (state) => {
+  return {
+    senhaReducer: state.senhaReducer
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    insertSenha: (senha) => {
+      dispatch(senhaActions.insertSenha(senha))
+    },
+    blockComponente: () => {
+      dispatch(senhaActions.blockComponente())
+    },
+    desblockComponente: () => {
+      dispatch(senhaActions.desblockComponente())
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ArquivosComponent);

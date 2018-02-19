@@ -23,13 +23,13 @@ class BloqueadoComponent extends Component {
   };
 
   // input do campo de texto.
-  inputSenha(e) {
+  inputSenha = (e) => {
     this.senha = e.target.value;
     this.setState({senha: e.target.value});
   }
 
   // Envia a senha, 1 para desbloqueio e 0 para bloquear.
-  submit() {
+  submit = () => {
     this.setState({open: false}, () => {
       if(this.props.check)
         this.props.input(this.senha, 1);
@@ -64,13 +64,13 @@ class BloqueadoComponent extends Component {
       <FlatButton
         label="Ok"
         primary={true}
-        onClick={this.submit.bind(this)}
+        onClick={this.submit}
       />,
     ];
 
     return (
-      <div>
-        <IconButton tooltip={this.tooltip}>
+      <div id="bloquado-botao">
+        <IconButton tooltip={this.tooltip} tooltipPosition="top-center">
           <FontIcon style={{color: "#6A6A6A"}} onClick={this.handleOpen} style={{cursor: 'pointer'}} 
             className="material-icons ">{this.icon}
           </FontIcon>
@@ -88,7 +88,7 @@ class BloqueadoComponent extends Component {
             floatingLabelFocusStyle={{color: "cornflowerblue"}}
             floatingLabelText="Senha..." 
             value={this.senha}
-            onChange={this.inputSenha.bind(this)}
+            onChange={this.inputSenha}
             type="password" />
         </Dialog>
       </div>

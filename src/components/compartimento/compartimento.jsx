@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
 import './compartimento.css';
-import DesbloquearComponent from './desbloquear/desbloquear.jsx';
 import LinksComponent from './links/links.jsx';
 import TextoComponent from './texto/texto.jsx';
 import ArquivosComponent from './arquivos/arquivos.jsx';
 import { Tab, Tabs, FontIcon } from 'material-ui';
 import ApiService from './../../shared/services/apiService';
+import SenhaComponent from './senha/senha.jsx';
 
 class CompartimentoComponent extends Component {
 
   constructor(props) {
     super(props);
 
-    this.state = {value: 'a', lista: [], arquivo: {senha: null, arqs: []}};
+    this.state = {value: 'a', lista: [], arquivo: {senha: null, arqs: []}, block: false};
     this.rota = this.props.location.pathname;
     this.apiService = new ApiService(this.rota);
 
@@ -61,12 +61,15 @@ class CompartimentoComponent extends Component {
 
             <Tab value="b" icon={<FontIcon className="material-icons" style={{color: "#6A6A6A"}}>insert_drive_file</FontIcon>} 
               style={{color: "#6A6A6A"}}>
-              <ArquivosComponent apiService={this.apiService} arquivos={this.state.arquivo}/>
+              <ArquivosComponent apiService={this.apiService} arquivos={this.state.arquivo} block={this.state.block}/>
             </Tab>
 
           </Tabs>
 
         </div>
+        <footer className="foo">
+          <SenhaComponent apiService={this.apiService}/>
+        </footer>
       </div>
     );
   }

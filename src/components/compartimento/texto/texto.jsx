@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import './texto.css';
 import { TextField, FontIcon, IconButton } from 'material-ui';
 import Rx from 'rxjs/Rx';
-import SenhaComponent from './../senha/senha.jsx';
+import { connect } from 'react-redux';
+import * as senhaActions from './../../../redux/actions/senhaActions';
 
 class TextoComponent extends Component {
 
@@ -14,7 +15,7 @@ class TextoComponent extends Component {
     this.tooltip = 'Conteúdo salvo';
     this.texto = "";
 
-    this.senha = null;
+    this.senha = undefined;
 
     this.subscription = null;
     this.entradaRxjs = new Rx.Subject();
@@ -69,7 +70,17 @@ class TextoComponent extends Component {
           const arqs = res[Object.keys(res)[0]].arqs;
 
           // Se a senha é 0 então é desbloqueada automaticamente.
-          this.senha = this.senha === '0' ? undefined : this.senha;
+          // this.senha = this.senha === '0' ? undefined : this.senha;
+          if(this.senha === '0')
+            this.props.desblockComponente();
+          
+          else if(this.senha !== this.props.senhaReducer.get("senha") && this.senha !== undefined) {
+            this.props.blockComponente();
+            this.props.insertSenha(this.senha);
+          }
+
+          else
+            this.props.desblockComponente();
 
           this.props.insertArquivos(this.senha, arqs);
 
@@ -137,24 +148,42 @@ class TextoComponent extends Component {
   }
 
   render() {
-    const check = this.senha !== undefined && this.state.block === false ? true : false;
+    const check = this.props.senhaReducer.get("isBlock");
     return(
       <div className="entrada-compartimento">
         <textarea placeholder="Digite algo" onChange={this.entrada} value={this.texto} readOnly={check} 
         rows={this.state.alturaTela} id="text-area"/>
         
         <div className="entrada-senha">
-          <div></div>
           <IconButton tooltip={this.tooltip}>
             <FontIcon style={{color: "#6A6A6A"}} 
               className={"material-icons " + (this.state.loading === true ? "loading-texto" : "")}>{this.icons}
             </FontIcon>
           </IconButton>
-          <SenhaComponent situacao={this.senha} block={this.senhaCheck.bind(this)} apiService={this.props.apiService}/>
         </div>
       </div>
     );
   };
 }
 
-export default TextoComponent;
+const mapStateToProps = (state) => {
+  return {
+    senhaReducer: state.senhaReducer
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    insertSenha: (senha) => {
+      dispatch(senhaActions.insertSenha(senha))
+    },
+    blockComponente: () => {
+      dispatch(senhaActions.blockComponente())
+    },
+    desblockComponente: () => {
+      dispatch(senhaActions.desblockComponente())
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(TextoComponent);

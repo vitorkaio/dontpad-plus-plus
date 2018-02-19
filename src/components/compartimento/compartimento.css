@@ -23,3 +23,18 @@
 .entrada-compartimento > button {
   margin-top: 10px;
 }
+
+.foo {
+  border: 1px solid #EEEEEE;
+  height: 30px;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #EEEEEE;
+  color: #6A6A6A;
+
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}

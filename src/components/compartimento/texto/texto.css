@@ -5,19 +5,20 @@
   align-items: center;
   
   flex: 1;
+  margin-top: 7px;
   margin-bottom: 15px;
 }
 
 .entrada-senha {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
   width: 100%;
 }
 
 #text-area {
   font-family: 'Roboto', sans-serif;
-  width: 100%;
+  width: 99%;
   resize: none;
   font-size: 16px;
 }
