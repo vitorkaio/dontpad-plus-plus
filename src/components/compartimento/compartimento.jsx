@@ -12,13 +12,11 @@ class CompartimentoComponent extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {value: 'a', lista: []};
+    this.state = {value: 'a', lista: [], arquivo: {senha: null, arqs: []}};
     this.rota = this.props.location.pathname;
     this.apiService = new ApiService(this.rota);
 
-    this.senha = null;
-
-    console.log("COMPARTIMENTO.JSX CONSTRUCTOR");
+    // console.log("COMPARTIMENTO.JSX CONSTRUCTOR");
   }
 
   handleChange = (value) => {
@@ -36,9 +34,9 @@ class CompartimentoComponent extends Component {
     });
   }
 
-  // input da senha.
-  senhaDesblock(senha) {
-    this.senha = senha;
+  // Set array de arquivos e a senha no state.
+  setArquivos = (senha, arqs) => {
+    this.setState({arquivo: {senha: senha, arqs: arqs}});
   }
 
   render() {
@@ -58,12 +56,12 @@ class CompartimentoComponent extends Component {
 
             <Tab value="a" icon = {<FontIcon className="material-icons" style={{color: "#6A6A6A"}}>text_fields</FontIcon>} 
               style={{color: "#6A6A6A"}}>
-              <TextoComponent apiService={this.apiService} rota={this.rota}/>
+              <TextoComponent apiService={this.apiService} rota={this.rota} insertArquivos={this.setArquivos}/>
             </Tab>
 
             <Tab value="b" icon={<FontIcon className="material-icons" style={{color: "#6A6A6A"}}>insert_drive_file</FontIcon>} 
               style={{color: "#6A6A6A"}}>
-              <ArquivosComponent apiService={this.apiService}/>
+              <ArquivosComponent apiService={this.apiService} arquivos={this.state.arquivo}/>
             </Tab>
 
           </Tabs>

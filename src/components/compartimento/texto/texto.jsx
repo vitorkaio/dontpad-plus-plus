@@ -8,7 +8,7 @@ class TextoComponent extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {loading: false, block: false, alturaTela: Math.round((window.innerHeight) / 24) - 2};
+    this.state = {loading: false, block: false, alturaTela: Math.round((window.innerHeight) / 24) - 5};
     this.loading = false;
     this.icons = "save";
     this.tooltip = 'Conteúdo salvo';
@@ -29,7 +29,7 @@ class TextoComponent extends Component {
 
   // Determina a largura da tela e renderiza a navbar correta.
   getInnerHeight() {
-    this.setState({alturaTela: Math.round((window.innerHeight) / 24) - 2});
+    this.setState({alturaTela: Math.round((window.innerHeight) / 24) - 5});
   }
 
   componentDidMount() {
@@ -66,9 +66,12 @@ class TextoComponent extends Component {
         if(res !== false) {
           this.texto = res[Object.keys(res)[0]].texto;
           this.senha = res[Object.keys(res)[0]].senha;
+          const arqs = res[Object.keys(res)[0]].arqs;
 
           // Se a senha é 0 então é desbloqueada automaticamente.
           this.senha = this.senha === '0' ? undefined : this.senha;
+
+          this.props.insertArquivos(this.senha, arqs);
 
           this.icons = 'save';
           this.setState({loading: false});

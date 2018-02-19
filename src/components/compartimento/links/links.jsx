@@ -14,7 +14,7 @@ class LinksComponent extends Component {
 
   navegaLink(link) {
     link = link.split(sep).join('/');
-    console.log(link);
+    // console.log(link);
     this.props.navigate.replace('/' + link);
     this.props.navigate.go('/' + link);
   }
@@ -41,7 +41,7 @@ class LinksComponent extends Component {
   }
 
   render() {
-    console.log('**** Render links.jsx ****');
+    // console.log('**** Render links.jsx ****');
     this.lista = [...this.props.lista];
     return(
       <div className="links-compartimento">

@@ -1,0 +1,12 @@
+.upload-deletar-arquivo {
+  cursor: pointer;
+}
+
+.upload-deleta-loading-arquivo {
+  animation: roda 2s linear forwards infinite;
+}
+
+@keyframes roda {
+  from{transform: rotate(0deg)}
+  to{transform: rotate(360deg)}
+}

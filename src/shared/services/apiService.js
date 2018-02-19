@@ -67,7 +67,7 @@ class ApiService {
 
   // Upload de arquivo.
   uploadArquivo(file) {
-    // console.log(file.nome, file.data, "api");
+    console.log(file);
     const sendJson = JSON.stringify(file);
     socket.emit("uploadArquivo", this.url, sendJson);
 
@@ -87,6 +87,19 @@ class ApiService {
 
     });
 
+  }
+
+  // Deleta um arquivo.
+  deletaArquivo(nomeArquivo) {
+    socket.emit("deletaArquivo", this.url, nomeArquivo);
+    return new Promise((resolve, reject) => {
+      socket.on("deletaArquivoReact", res => {
+        return res === true ? resolve(res) : reject(res);
+      });
+      socket.on("connect_error", res => {
+        reject(false);
+      });
+    });
   }
 
   // Fecha um cliente.

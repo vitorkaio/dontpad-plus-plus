@@ -1,5 +1,5 @@
 .imagem-compartimento {
-  margin: 20px 0px 10px 0px;
+  margin: 25px 0px 10px 0px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -20,3 +20,74 @@
 #input-upload-image > *:hover {
   cursor: pointer;
 }
+
+.upload-arquivo-dados {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 15px;
+}
+
+.upload-arquivo-dados > *:not(#upload-arquivo-nome) {
+  margin-left: 5px;
+}
+
+.upload-arquivos-input {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.upload-lista-arquivo {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+
+  width: 100%;
+}
+
+.upload-lista-itens {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+  width: 200px;
+}
+
+#upload-nome-span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
+  width: 150px;
+}
+
+#upload-botoes {
+  margin-top: 5px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  width: 100%;
+}
+
+#upload-botao-download > a{
+  color: #6A6A6A;
+  margin-left: 5px;  
+}
+
+.upload-loading-arquivo {
+  animation: roda 2s linear forwards infinite;
+}
+
+@keyframes roda {
+  from{transform: rotate(0deg)}
+  to{transform: rotate(360deg)}
+}
+
+
