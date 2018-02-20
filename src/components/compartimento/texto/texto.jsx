@@ -93,7 +93,7 @@ class TextoComponent extends Component {
           else
             this.props.blockComponente();
 
-          console.log("isBlock ", this.props.senhaReducer.get("isBlock"));
+          // console.log("isBlock ", this.props.senhaReducer.get("isBlock"));
 
           this.props.insertArquivos(this.senha, arqs);
 
@@ -132,7 +132,7 @@ class TextoComponent extends Component {
     let obs = {
       next: (data) => {
         this.props.apiService.postMessage(data).then(res => {
-          console.log(res);
+          // console.log(res);
           if(res === true) {
             this.icons = 'save';
             this.setState({loading: false});

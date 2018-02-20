@@ -31,8 +31,8 @@ class TituloComponent extends Component {
       <div className="home-titulo">
         <h1 id="titulo">Dontpad ++</h1>
         <div className="home-titulo-cont">
-          <div className="home-titulo-input">
-            <form onSubmit={this.navigateToUrl}>
+          <div>
+            <form className="home-titulo-input" onSubmit={this.navigateToUrl}>
               <TextField value={this.state.url} onChange={this.inputUrl} hintText="Digite uma url..." />
               <RaisedButton label="Acessar" primary={true} style={{marginLeft: 15}} onClick={this.navigateToUrl} />
             </form>

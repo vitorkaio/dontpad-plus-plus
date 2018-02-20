@@ -21,6 +21,14 @@
   cursor: pointer;
 }
 
+#upload-arquivo-nome {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
+  width: 120px;
+}
+
 .upload-arquivo-dados {
   width: 100%;
   display: flex;
@@ -60,6 +68,7 @@
 }
 
 #upload-nome-span {
+  margin-bottom: 5px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

@@ -1,7 +1,6 @@
 // import axios from 'axios';
 import { Observable } from 'rxjs/Observable'
 import FirebaseService from './firebase/firebase';
-import { firebaseConfig } from './firebase/firebaseConfig';
 
 const fireUser = FirebaseService.database().ref().child('rotas');
 const sep = '@@-@3';
@@ -107,12 +106,14 @@ class ApiFirebaseAcess {
     const rota = this.buildUrl(url);
 
     return new Promise((resolve, reject) => {
-      const fire = FirebaseService.database().ref().child(`rotas/${rota}/arqs`);
+      setTimeout(() => {
+        const fire = FirebaseService.database().ref().child(`rotas/${rota}/arqs`);
       fire.push(file, erro => {
         if (erro === false)
           resolve(false);
       });
       resolve(true);
+      }, 1500);
     });
   }
 

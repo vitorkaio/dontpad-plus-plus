@@ -50,12 +50,12 @@ class ArquivosComponent extends Component {
       this.icon = "cached";
       this.setState({loading: true, arquivo: this.state.arquivo.set("data", e.target.result)}, () => {
         this.props.apiService.uploadArquivo(this.state.arquivo.toJS()).then(snap => {
-          console.log(snap, "upload");
+          // console.log(snap, "upload");
           this.icon = "cloud_upload";
           this.setState({loading: false, arquivo: this.state.arquivo.set("nome", null).set("size", null).set("type", null
           ).set("lastModified", null).set("data", null)});
         }).catch(err => {
-          console.log(err, "upload");
+          // console.log(err, "upload");
           this.setState({loading: false});
         });
       });
@@ -128,7 +128,7 @@ class ArquivosComponent extends Component {
         <div id="input-upload-arquivo" style={{display: this.props.senhaReducer.get("isBlock") ? "none" : null}} >
           <FontIcon className="material-icons" color="#6A6A6A" style={{marginRight: 5}}>file_upload</FontIcon>
           <label htmlFor="upload-photo">Input arquivo</label>
-          <input style={{opacity: 0, position: 'absolute', zIndex: -1}} type="file" name="photo" id="upload-photo" onChange={this.inputImagem.bind(this)} />
+          <input style={{opacity: 0, position: 'absolute', zIndex: -1}} type="file" name="photo" id="upload-photo" onChange={this.inputImagem} />
         </div>
         {
           this.state.arquivo.get("nome") === null ? null : 

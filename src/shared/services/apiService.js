@@ -1,4 +1,3 @@
-import { Observable } from 'rxjs';
 import FirebaseApiService from './apiFirebaseAcess';
 
 // const io = require('socket.io-client');

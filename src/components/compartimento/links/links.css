@@ -46,3 +46,13 @@
 #meuChip:hover {
   animation: pulse 1s ease-in-out forwards infinite;
 }
+
+@media screen and (max-width: 612px) { 
+  .links-compartimento  {
+    width: 100%;
+    border: none;
+  }
+  #meuChip {
+    width: 96%;
+  }
+}
