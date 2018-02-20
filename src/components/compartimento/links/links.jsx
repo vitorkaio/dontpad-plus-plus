@@ -10,6 +10,7 @@ class LinksComponent extends Component {
     super(props);
 
     this.lista = [];
+    this.erro = false;
   }
 
   navegaLink(link) {
@@ -22,9 +23,6 @@ class LinksComponent extends Component {
   // Renderiza uma lista.
   renderizaLinks() {
     const list = [];
-
-    if(this.lista.length === 0)
-      return <div id='meuChip' style={{textAlign: 'center'}}><p>Sem sub-links</p></div>
 
     for(let x = 0; x < this.lista.length; x++) {
       const links = this.lista[x].split(sep).join('');

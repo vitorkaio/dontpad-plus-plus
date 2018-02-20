@@ -9,11 +9,11 @@ class TextoComponent extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {loading: false, block: false, alturaTela: Math.round((window.innerHeight) / 24) - 5};
+    this.state = {loading: false, alturaTela: Math.round((window.innerHeight) / 24) - 5};
     this.loading = false;
     this.icons = "save";
     this.tooltip = 'Conteúdo salvo';
-    this.texto = "";
+    this.texto = null;
 
     this.senha = undefined;
 
@@ -103,6 +103,9 @@ class TextoComponent extends Component {
           this.icons = 'warning';
           this.setState({loading: false});
         }
+        else {
+          this.props.navigate.push("/3a46d48036bd86d55c72bbfee99bbbf6-erro-404");
+        }
       },
       complete: () => {
         this.setState({loading: false});
@@ -148,7 +151,7 @@ class TextoComponent extends Component {
   }
 
   render() {
-    const check = this.props.senhaReducer.get("isBlock");
+    const check = this.props.senhaReducer.get("isBlock") || this.texto === null ? true : false;
     return(
       <div className="entrada-compartimento">
         <textarea placeholder="Digite algo" onChange={this.entrada} value={this.texto} readOnly={check} 

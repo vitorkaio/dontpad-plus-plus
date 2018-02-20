@@ -44,12 +44,12 @@ class BloqueadoComponent extends Component {
   modalRender() {
     if(this.props.check) {
       this.title = 'Desbloquear - Digite a senha';
-      this.tooltip = 'Desbloquear';
+      this.tooltip = 'Desbloquear url';
       this.icon = 'lock_outline';
     }
     else {
       this.title = 'Bloquear - Digite a senha';
-      this.tooltip = 'Bloquear';
+      this.tooltip = 'Bloquear url';
       this.icon = 'lock_open';
     }
   }
@@ -84,8 +84,6 @@ class BloqueadoComponent extends Component {
         >
           <TextField hintText=""
             fullWidth={true} 
-            underlineFocusStyle={{borderColor: "cornflowerblue"}} 
-            floatingLabelFocusStyle={{color: "cornflowerblue"}}
             floatingLabelText="Senha..." 
             value={this.senha}
             onChange={this.inputSenha}

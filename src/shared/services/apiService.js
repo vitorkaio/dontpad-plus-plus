@@ -45,7 +45,7 @@ class ApiService {
       });
       // Fica escutando pra vê se tem algum erro.
       socket.on("connect_error", res => {
-        obs.error(null);
+        obs.error(false);
       });
     });
   }
@@ -109,7 +109,7 @@ class ApiService {
   }
 
   postMessage(data) {
-    data = data === null ? 'vazio' : data;
+    data = data === null ? '...' : data;
     // const rota = url[url.length - 2] === '/' ? url.substr(1) : url.substr(1) + '/';
     // console.log(data);
     return new Promise((resolve, reject) => {

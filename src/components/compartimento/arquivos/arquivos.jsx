@@ -134,8 +134,8 @@ class ArquivosComponent extends Component {
   render() {
     // console.log("** Render arquivos **", this.state.erroSize, this.state.arquivo.get("size"));
     return(
-      <div className="imagem-compartimento">
-        <div id="input-upload-image" style={{display: this.props.senhaReducer.get("isBlock") ? "none" : null}} >
+      <div className="arquivo-compartimento">
+        <div id="input-upload-arquivo" style={{display: this.props.senhaReducer.get("isBlock") ? "none" : null}} >
           <FontIcon className="material-icons" color="#6A6A6A" style={{marginRight: 5}}>file_upload</FontIcon>
           <label htmlFor="upload-photo">Input arquivo</label>
           <input style={{opacity: 0, position: 'absolute', zIndex: -1}} type="file" name="photo" id="upload-photo" onChange={this.inputImagem.bind(this)} />

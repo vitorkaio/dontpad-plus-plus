@@ -1,0 +1,15 @@
+.home-dontpad {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: auto;
+
+  width: 100%;
+}
+
+.home-dontpad > * {
+  margin: 10px 0px;
+  height: calc(100vh - 30px);
+  width: 97%;
+}

@@ -1,4 +1,4 @@
-.imagem-compartimento {
+.arquivo-compartimento {
   margin: 25px 0px 10px 0px;
   display: flex;
   flex-direction: column;
@@ -6,7 +6,7 @@
   align-items: center;
 }
 
-#input-upload-image {
+#input-upload-arquivo {
   padding: 10px 15px;
   background-color: #EEEEEE;
   color: #6A6A6A;
@@ -17,7 +17,7 @@
   cursor: pointer;
 }
 
-#input-upload-image > *:hover {
+#input-upload-arquivo > *:hover {
   cursor: pointer;
 }
 

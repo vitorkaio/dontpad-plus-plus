@@ -38,3 +38,12 @@
   justify-content: flex-end;
   align-items: center;
 }
+
+#carregando-dados {
+  animation: roda 2s linear forwards infinite;
+}
+
+@keyframes roda {
+  from{transform: rotate(0deg)}
+  to{transform: rotate(360deg)}
+}
