@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './senha.css';
-import { FontIcon } from 'material-ui';
 import BloqueadoComponent from './bloqueado/bloqueado.jsx';
 import { connect } from 'react-redux';
 import * as senhaActions from './../../../redux/actions/senhaActions';
@@ -10,7 +9,7 @@ class SenhaComponent extends Component {
   constructor(props) {
     super(props);
     this.senha = null;
-    console.log(this.props.senhaReducer);
+    // console.log(this.props.senhaReducer);
   }
 
   // Desbloqueia uma url.

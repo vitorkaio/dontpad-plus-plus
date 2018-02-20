@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './links.css';
-import { Chip, FontIcon, Avatar } from 'material-ui';
+import { FontIcon } from 'material-ui';
 
 const sep = '@@-@3';
 

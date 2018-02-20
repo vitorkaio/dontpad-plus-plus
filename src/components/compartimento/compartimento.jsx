@@ -42,7 +42,7 @@ class CompartimentoComponent extends Component {
 
   render() {
     // console.log('**** CompartimentoComponent render ****');
-    console.log(this.state.carregando);
+    // console.log(this.state.carregando);
     return (
       <div className="tudo-compartimento">
         {

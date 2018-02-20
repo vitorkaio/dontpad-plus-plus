@@ -71,7 +71,7 @@ class BloqueadoComponent extends Component {
     return (
       <div id="bloquado-botao">
         <IconButton tooltip={this.tooltip} tooltipPosition="top-center">
-          <FontIcon style={{color: "#6A6A6A"}} onClick={this.handleOpen} style={{cursor: 'pointer'}} 
+          <FontIcon onClick={this.handleOpen} style={{color: "#6A6A6A", cursor: 'pointer'}} 
             className="material-icons ">{this.icon}
           </FontIcon>
         </IconButton>

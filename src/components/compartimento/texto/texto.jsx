@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './texto.css';
-import { TextField, FontIcon, IconButton } from 'material-ui';
+import { FontIcon, IconButton, Dialog } from 'material-ui';
 import Rx from 'rxjs/Rx';
 import { connect } from 'react-redux';
 import * as senhaActions from './../../../redux/actions/senhaActions';
@@ -9,8 +9,7 @@ class TextoComponent extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {loading: false, alturaTela: Math.round((window.innerHeight) / 24) - 5};
-    this.loading = false;
+    this.state = {open: false, loading: false, alturaTela: Math.round((window.innerHeight) / 24) - 5};
     this.icons = "save";
     this.tooltip = 'Conteúdo salvo';
     this.texto = null;
@@ -27,6 +26,14 @@ class TextoComponent extends Component {
     window.addEventListener("resize", this.getInnerHeight.bind(this));
 
   }
+
+  handleOpen = () => {
+    this.setState({open: true});
+  };
+
+  handleClose = () => {
+    this.setState({open: false});
+  };
 
   // Determina a largura da tela e renderiza a navbar correta.
   getInnerHeight() {
@@ -48,6 +55,7 @@ class TextoComponent extends Component {
       })
       .subscribe(this.getObsPostText());
       //.distinctUntilChanged()
+      this.handleOpen();
       this.subscriptionGetText = this.props.apiService.getText().subscribe(this.getObsText());
   }
 
@@ -85,15 +93,15 @@ class TextoComponent extends Component {
           this.props.insertArquivos(this.senha, arqs);
 
           this.icons = 'save';
-          this.setState({loading: false});
+          this.setState({loading: false, open: false});
         }
         else {
           this.props.apiService.postMessage(null).then(res => {
-            this.setState({loading: false});
+            this.setState({loading: false, open: false});
           }).catch(erro => {
             this.tooltip = 'Não foi possível carregar o conteúdo';
             this.icons = 'warning';
-            this.setState({loading: false});
+            this.setState({loading: false, open: false});
           });
         }
       },
@@ -101,7 +109,7 @@ class TextoComponent extends Component {
         if(err === null) {
           this.tooltip = 'Não foi possível carregar o conteúdo';
           this.icons = 'warning';
-          this.setState({loading: false});
+          this.setState({loading: false, open: false});
         }
         else {
           this.props.navigate.push("/3a46d48036bd86d55c72bbfee99bbbf6-erro-404");
@@ -152,6 +160,7 @@ class TextoComponent extends Component {
 
   render() {
     const check = this.props.senhaReducer.get("isBlock") || this.texto === null ? true : false;
+    this.texto = this.texto === null ? "" : this.texto;
     return(
       <div className="entrada-compartimento">
         <textarea placeholder="Digite algo" onChange={this.entrada} value={this.texto} readOnly={check} 
@@ -164,6 +173,18 @@ class TextoComponent extends Component {
             </FontIcon>
           </IconButton>
         </div>
+
+        <Dialog
+          title="Carregando dados..."
+          modal={true}
+          open={this.state.open}
+        >
+          <div style={{textAlign: "center"}}>
+            <FontIcon style={{color: "#6A6A6A"}} 
+              className="material-icons loading-texto">cached
+            </FontIcon>
+          </div>
+        </Dialog>
       </div>
     );
   };

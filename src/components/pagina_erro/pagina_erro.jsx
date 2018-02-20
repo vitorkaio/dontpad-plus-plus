@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './pagina_erro.css';
-import { FlatButton } from 'material-ui';
 
 class ErroServidorComponent extends Component {
 

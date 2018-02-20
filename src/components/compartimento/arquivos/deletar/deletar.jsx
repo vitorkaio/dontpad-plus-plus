@@ -1,15 +1,10 @@
 import React, { Component } from 'react';
 import './deletar.css';
-import { Map } from 'immutable';
-import { FlatButton, FontIcon, IconButton } from 'material-ui';
+import { FontIcon, IconButton } from 'material-ui';
 /*import Rx from 'rxjs/Rx';
 import ApiService from './../../../shared/services/apiService';*/
 
 class DeletarArquivoComponent extends Component {
-
-  constructor(props) {
-    super(props);
-  }
 
   // Deleta um arquivo.
   deletaArquivo = () => {
@@ -24,7 +19,6 @@ class DeletarArquivoComponent extends Component {
 
   // ************************************ render ************************************
   render() {
-    console.log(this.props.disable);
     return(
       <div className="upload-deletar-arquivo" onClick={this.deletaArquivo}>
         <IconButton tooltip={`Deletar - ${this.props.nome}`} disabled={this.props.disable}>

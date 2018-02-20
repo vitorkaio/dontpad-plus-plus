@@ -2,7 +2,9 @@ import { Observable } from 'rxjs';
 
 const io = require('socket.io-client');
 // const socket = io.connect("http://127.0.0.1:5000/");
-const socket = io.connect("http://localhost:3001");
+// const socket = io.connect("http://localhost:3001");
+const socket = io.connect("https://servidor-node-socket.herokuapp.com/");
+
 
 // Classe com metódos para acessar a api-compartment-files
 class ApiService {
@@ -18,7 +20,6 @@ class ApiService {
 
     return new Promise((resolve, reject) => {
       socket.on('getReactLinks', (res) => {
-        console.log(res);
         if(res !== false)
           resolve(res);
         else if(res === null)
@@ -35,13 +36,15 @@ class ApiService {
     
     return Observable.create(obs => {
       socket.on('getReactApp', (res) => {
-        console.log(res);
+        // console.log(res);
         if(res !== false)
           obs.next(res);
         else if(res === null)
           obs.error(res);
         else
           obs.next(false);
+
+        // obs.complete();
       });
       // Fica escutando pra vê se tem algum erro.
       socket.on("connect_error", res => {
@@ -109,7 +112,7 @@ class ApiService {
   }
 
   postMessage(data) {
-    data = data === null ? '...' : data;
+    data = data === null ? 'Digite alguma coisa...' : data;
     // const rota = url[url.length - 2] === '/' ? url.substr(1) : url.substr(1) + '/';
     // console.log(data);
     return new Promise((resolve, reject) => {

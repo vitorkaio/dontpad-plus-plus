@@ -1,5 +1,7 @@
-import { createStore, combineReducers, applyMiddleware } from 'redux';
-import logger from 'redux-logger';
+// import { createStore, combineReducers, applyMiddleware } from 'redux';
+// import logger from 'redux-logger';
+import { createStore, combineReducers } from 'redux';
+
 
 import senhaReducer from './reducers/senhaReducer';
 import otherReducer from './reducers/otherReducer';
@@ -10,5 +12,5 @@ export default createStore(
     otherReducer
   }),
   {},
-  applyMiddleware(logger)
+  // applyMiddleware(logger)
 );

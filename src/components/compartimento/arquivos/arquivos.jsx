@@ -3,12 +3,9 @@ import './arquivos.css';
 import { Map } from 'immutable';
 import { FlatButton, FontIcon, IconButton } from 'material-ui';
 import DeletarArquivoComponent from './deletar/deletar.jsx';
-import SenhaComponent from './../senha/senha.jsx';
 import texto_upload from './../../../lib/imgs/texto_upload.svg';
 import app_upload from './../../../lib/imgs/app_upload.svg';
 import other_upload from './../../../lib/imgs/other_upload.svg';
-/*import Rx from 'rxjs/Rx';
-import ApiService from './../../../shared/services/apiService';*/
 import { connect } from 'react-redux';
 import * as senhaActions from './../../../redux/actions/senhaActions';
 
@@ -23,7 +20,7 @@ class ArquivosComponent extends Component {
     this.arq = null;
     this.icon = "cloud_upload";
 
-    console.log(this.props.arquivos);
+    // console.log(this.props.arquivos);
   }
 
   // ************************************ Input file ************************************
@@ -82,11 +79,10 @@ class ArquivosComponent extends Component {
     if(this.props.arquivos.arqs === null || this.props.arquivos.arqs === undefined)
       return;
     const lista = [];
-    const aux = [];
     let contador = 0;
 
-    for(let arq of  Object.keys(this.props.arquivos.arqs))
-      contador++;
+    for(contador = 0; contador <  Object.keys(this.props.arquivos.arqs).length; contador++)
+      ;
 
     for(let x = 0; x < contador; x++) {
       const data = this.props.arquivos.arqs[Object.keys(this.props.arquivos.arqs)[x]].data;
@@ -109,7 +105,7 @@ class ArquivosComponent extends Component {
       lista.push(
         <div key={x} className="upload-lista-itens">
           <span id="upload-nome-span">{nome}</span>
-          <img src={showType} width="150" height="150" />
+          <img src={showType} width="150" height="150" alt={nome}/>
           <div id="upload-botoes">
             <a href={data} download={nome}>
               <IconButton tooltip={`Baixar - ${nome}`}>
