@@ -72,14 +72,14 @@ class TextoComponent extends Component {
   getObsText() {
     const obs = {
       next: (res) => {
-        if(res !== false) {
+        if(res !== false && res !== null) {
           this.texto = res[Object.keys(res)[0]].texto;
           this.senha = res[Object.keys(res)[0]].senha;
           const arqs = res[Object.keys(res)[0]].arqs;
 
           // Se a senha é 0 então é desbloqueada automaticamente.
           // this.senha = this.senha === '0' ? undefined : this.senha;
-          if(this.senha === '0')
+          if(this.senha === '0' || this.senha === undefined)
             this.props.desblockComponente();
           
           else if(this.senha !== this.props.senhaReducer.get("senha") && this.senha !== undefined) {
@@ -87,8 +87,13 @@ class TextoComponent extends Component {
             this.props.insertSenha(this.senha);
           }
 
-          else
+          else if(this.props.senhaReducer.get("controle"))
             this.props.desblockComponente();
+          
+          else
+            this.props.blockComponente();
+
+          console.log("isBlock ", this.props.senhaReducer.get("isBlock"));
 
           this.props.insertArquivos(this.senha, arqs);
 
@@ -127,9 +132,13 @@ class TextoComponent extends Component {
     let obs = {
       next: (data) => {
         this.props.apiService.postMessage(data).then(res => {
-          // console.log(res);
-          this.setState({loading: false});
+          console.log(res);
+          if(res === true) {
+            this.icons = 'save';
+            this.setState({loading: false});
+          }
         }).catch(err => {
+          console.log(err);
           this.icons = 'warning';
           this.tooltip = 'Não foi possível salvar o conteúdo';
           this.setState({loading: false});

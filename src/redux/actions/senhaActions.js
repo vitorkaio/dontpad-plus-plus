@@ -25,3 +25,17 @@ export function desblockComponente(){
     payload: false
   }
 }
+
+export function setControle(){
+  return {
+    type: 'SET_CONTROLE',
+    payload: true
+  }
+}
+
+export function popControle(){
+  return {
+    type: 'POP_CONTROLE',
+    payload: false
+  }
+}

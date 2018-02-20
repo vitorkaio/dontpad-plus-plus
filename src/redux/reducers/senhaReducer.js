@@ -1,6 +1,6 @@
 import { Map } from 'immutable';
 
-let senhaInitial = Map({senha: undefined, oldeSenha: undefined, isBlock: false});
+let senhaInitial = Map({senha: undefined, controle: false, isBlock: false});
 
 const senhaReducer = (state = senhaInitial, action) => {
   switch (action.type) {
@@ -18,6 +18,14 @@ const senhaReducer = (state = senhaInitial, action) => {
 
     case 'DESBLOCK':
       state = state.set("isBlock", action.payload);
+    break;
+
+    case 'SET_CONTROLE':
+      state = state.set("controle", action.payload);
+    break;
+
+    case 'POP_CONTROLE':
+      state = state.set("controle", action.payload);
     break;
 
     default:

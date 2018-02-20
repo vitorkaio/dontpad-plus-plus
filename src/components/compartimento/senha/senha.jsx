@@ -17,11 +17,14 @@ class SenhaComponent extends Component {
     this.senha = senha;
 
     if(op === 1) { // Indica que é para desbloqueio.
-      if(this.props.senhaReducer.get("senha") === this.senha)
+      if(this.props.senhaReducer.get("senha") === this.senha) {
         this.props.desblockComponente();
+        this.props.setControle();
+      }
     }
     else { // Caso contrário é para bloqueio.
       this.props.insertSenha(undefined);
+      this.props.popControle();
       this.props.apiService.postSenha(this.senha).then(res => { // Adicionar uma senha na url corrente.
         if(res !== false) {
           this.senha = null; // Reseta a senha.
@@ -60,6 +63,12 @@ const mapDispatchToProps = (dispatch) => {
     },
     desblockComponente: () => {
       dispatch(senhaActions.desblockComponente())
+    },
+    setControle: () => {
+      dispatch(senhaActions.setControle())
+    },
+    popControle: () => {
+      dispatch(senhaActions.popControle())
     }
   }
 }

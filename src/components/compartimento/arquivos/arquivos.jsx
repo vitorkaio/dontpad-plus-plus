@@ -43,27 +43,21 @@ class ArquivosComponent extends Component {
 
   // ************************************ Submit arquivo ************************************
   submitArquivo = () => {
-    const obs = {
-      next: (snap) => {
-        console.log(snap, "upload");
-      },
-      error: (err) => {
-        console.log(err, "upload");
-        this.setState({loading: false});
-      },
-      complete: () => {
-        this.icon = "cloud_upload";
-        this.setState({loading: false, arquivo: this.state.arquivo.set("nome", null).set("size", null).set("type", null
-        ).set("lastModified", null).set("data", null)});
-      }
-    }
 
     // Transforma o arquivo em bytes.
     let reader = new FileReader();
     reader.onload = (e) => {
       this.icon = "cached";
       this.setState({loading: true, arquivo: this.state.arquivo.set("data", e.target.result)}, () => {
-        this.subsUploadArquivo = this.props.apiService.uploadArquivo(this.state.arquivo.toJS()).subscribe(obs);
+        this.props.apiService.uploadArquivo(this.state.arquivo.toJS()).then(snap => {
+          console.log(snap, "upload");
+          this.icon = "cloud_upload";
+          this.setState({loading: false, arquivo: this.state.arquivo.set("nome", null).set("size", null).set("type", null
+          ).set("lastModified", null).set("data", null)});
+        }).catch(err => {
+          console.log(err, "upload");
+          this.setState({loading: false});
+        });
       });
     };
     reader.onerror = function (error) {
