@@ -1,14 +1,14 @@
-.home-titulo {
+.home-desenvolvedor {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
   background-color: #FAFAFA;
 
-  animation: fadeIn 1s ease-in-out forwards;
+  animation: zoomIn 1s ease-out forwards;
 }
 
-#titulo {
+#titulo-desenvolvedor {
   color: #6A6A6A;
   font-weight: bold;
   font-size: 50px;
@@ -16,18 +16,17 @@
 
   margin-left: 2%;
   margin-top: 30px;
+
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+
+  width: 100%;
   flex: 1;
-
-  display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
-
-  width: 100%;
 }
 
-.home-titulo-cont {
-  flex: 2;
-  width: 100%;
+.conteudo-desenvolvedor {
+  flex: 3;
 
   display: flex;
   flex-direction: column;
@@ -35,30 +34,12 @@
   align-items: center;
 }
 
-.home-titulo-exemplo {
-  margin-top: 25px;
-  width: 350px;
-
-  color: #6A6A6A;
-  font-weight: bold;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
+.conteudo-desenvolvedor > span {
+  font-family: 'Offside', cursive;
+  margin-top: 20px;
 }
 
-.home-titulo-exemplo > span {
-  margin-top: 10px;
-}
-
-.home-titulo-input {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.home-titulo-desenvolvedor {
+.voltar-desenvolvedor {
   width: 100%;
 
   display: flex;
@@ -69,7 +50,7 @@
   margin-bottom: 15px;
 }
 
-.home-titulo-desenvolvedor > span {
+.voltar-desenvolvedor > span {
   cursor: pointer;
   font-size: 15px;
   color: #6A6A6A;
@@ -79,12 +60,8 @@
   border-width: 0px 0px 1px 0px;
 }
 
-
 @media screen and (max-width: 612px) { 
-  .home-titulo-input {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  #titulo-desenvolvedor {
+    font-size: 40px;
   }
 }

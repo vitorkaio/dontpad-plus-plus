@@ -26,10 +26,15 @@ class TituloComponent extends Component {
     }
   }
 
+  // Mostrar info do desenvolvedor.
+  showDeveloper = () => {
+    this.props.showInfo();
+  }
+
   render() {
     return (
       <div className="home-titulo">
-        <h1 id="titulo">Dontpad ++</h1>
+        <h1 id="titulo">Dontpad++</h1>
         <div className="home-titulo-cont">
           <div>
             <form className="home-titulo-input" onSubmit={this.navigateToUrl}>
@@ -44,6 +49,7 @@ class TituloComponent extends Component {
             <span>Faça upload de arquivos (max - 2mb)</span>
           </div>
         </div>
+        <div className="home-titulo-desenvolvedor"><span onClick={this.showDeveloper}>desenvolvedor</span></div>
       </div>
     );
   }
